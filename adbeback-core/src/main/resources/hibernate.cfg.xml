@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <!-- ad -->
+  <mapping class="fr.k2i.adbeback.core.business.ad.Ad"/>
+  <mapping class="fr.k2i.adbeback.core.business.ad.Brand"/>
+  <mapping class="fr.k2i.adbeback.core.business.ad.Product"/>
+  <!-- ad rule -->
+  <mapping class="fr.k2i.adbeback.core.business.ad.rule.AdRule"/>
+  <mapping class="fr.k2i.adbeback.core.business.ad.rule.AdResponse"/>
+  <mapping class="fr.k2i.adbeback.core.business.ad.rule.BrandRule"/>
+  <mapping class="fr.k2i.adbeback.core.business.ad.rule.ProductRule"/>
+  <mapping class="fr.k2i.adbeback.core.business.ad.rule.OpenRule"/>
+  <!-- game -->
+  <mapping class="fr.k2i.adbeback.core.business.game.AdGame"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.AdChoise"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.AdGameMusic"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.AdGameVideo"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.AdScore"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.Possibility"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.BrandPossibility"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.ProductPossibility"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.OpenPossibility"/>
+  <mapping class="fr.k2i.adbeback.core.business.game.AdResponsePlayer"/>
+  <!-- goosegame -->
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.AddPotGooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.DeadGooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.JailGooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.EndLevelGooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.GooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.GooseLevel"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.GooseToken"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.GooseWin"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.JumpGooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.ReductionGooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.StartLevelGooseCase"/>
+  <mapping class="fr.k2i.adbeback.core.business.goosegame.GooseGame"/>
+  <!-- media -->
+  <mapping class="fr.k2i.adbeback.core.business.media.Person"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Actor"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Artist"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Productor"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Realisator"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Album"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Genre"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.MusicGenre"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.VideoGenre"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Media"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Music"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.Video"/>
+  <mapping class="fr.k2i.adbeback.core.business.media.ViewedMedia"/>
+  <!-- partener -->
+  <mapping class="fr.k2i.adbeback.core.business.partener.Reduction"/>
+  <mapping class="fr.k2i.adbeback.core.business.partener.Partener"/>
+  <!-- Player -->
+  <mapping class="fr.k2i.adbeback.core.business.player.Player"/>
+  <mapping class="fr.k2i.adbeback.core.business.player.Role"/>
+  <!-- Home -->
+  <mapping class="fr.k2i.adbeback.core.business.home.Home"/>
+  <!-- Country -->
+  <mapping class="fr.k2i.adbeback.core.business.country.Country"/>
+   
+  
+ </session-factory>
+</hibernate-configuration>

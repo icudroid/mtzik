@@ -1,0 +1,1636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<table name="country">
+		<column>id</column>
+		<column>code</column>
+		<row>
+            <value description="id">1</value>
+            <value description="code">FR_fr</value>
+        </row>
+    </table>	
+
+	<table name="brand">
+		<column>id</column>
+		<column>name</column>
+		<column>logo</column>
+		<row>
+            <value description="id">1</value>
+            <value description="name">LU</value>
+            <value description="logo">lu.jpg</value>
+        </row>
+		<row>
+            <value description="id">2</value>
+            <value description="name">Intermarché</value>
+            <value description="logo">intermarche.jpg</value>
+        </row>
+		<row>
+            <value description="id">3</value>
+            <value description="name">Citroën</value>
+            <value description="logo">citroen.jpg</value>
+        </row>
+		<row>
+            <value description="id">4</value>
+            <value description="name">Ing Direct</value>
+            <value description="logo">ingdirect.png</value>
+        </row>
+		<row>
+            <value description="id">5</value>
+            <value description="name">Groupama</value>
+            <value description="logo">groupama.png</value>
+        </row>
+		<row>
+            <value description="id">6</value>
+            <value description="name">Nissan</value>
+            <value description="logo">nissan.jpg</value>
+        </row>
+		<row>
+            <value description="id">7</value>
+            <value description="name">Maif</value>
+            <value description="logo">maif.gif</value>
+        </row>
+		<row>
+            <value description="id">8</value>
+            <value description="name">Lexus</value>
+            <value description="logo">lexus.gif</value>
+        </row>
+		<row>
+            <value description="id">9</value>
+            <value description="name">Danone</value>
+            <value description="logo">danone.jpg</value>
+        </row>
+		<row>
+            <value description="id">10</value>
+            <value description="name">Gillette</value>
+            <value description="logo">gillette.jpg</value>
+        </row>
+		<row>
+            <value description="id">11</value>
+            <value description="name">Krys</value>
+            <value description="logo">krys.png</value>
+        </row>
+		<row>
+            <value description="id">12</value>
+            <value description="name">Ford</value>
+            <value description="logo">ford.jpg</value>
+        </row>
+		<row>
+            <value description="id">13</value>
+            <value description="name">Alsa</value>
+            <value description="logo">alsa.png</value>
+        </row>
+		<row>
+            <value description="id">14</value>
+            <value description="name">Barilla</value>
+            <value description="logo">barilla.jpg</value>
+        </row>
+		<row>
+            <value description="id">15</value>
+            <value description="name">Castorama</value>
+            <value description="logo">castorama.jpg</value>
+        </row>
+		<row>
+            <value description="id">16</value>
+            <value description="name">CTC</value>
+            <value description="logo">ctc_logo.png</value>
+        </row>
+		<row>
+            <value description="id">17</value>
+            <value description="name"><![CDATA[H&M]]></value>
+            <value description="logo">hm.jpg</value>
+        </row>
+		<row>
+            <value description="id">18</value>
+            <value description="name">Lancome Paris</value>
+            <value description="logo">lancome.jpg</value>
+        </row>
+		<row>
+            <value description="id">19</value>
+            <value description="name">Michelin</value>
+            <value description="logo">michelin.jpg</value>
+        </row>
+		<row>
+            <value description="id">20</value>
+            <value description="name">Microsoft</value>
+            <value description="logo">microsoft.jpg</value>
+        </row>
+		<row>
+            <value description="id">21</value>
+            <value description="name">Numéricable</value>
+            <value description="logo">numericable.jpg</value>
+        </row>
+		<row>
+            <value description="id">22</value>
+            <value description="name">Peugeot</value>
+            <value description="logo">peugeot.jpg</value>
+        </row>
+		<row>
+            <value description="id">23</value>
+            <value description="name">SFR</value>
+            <value description="logo">sfr.jpg</value>
+        </row>
+		<row>
+            <value description="id">24</value>
+            <value description="name">St Michel</value>
+            <value description="logo">stmichel.jpg</value>
+        </row>
+		<row>
+            <value description="id">25</value>
+            <value description="name">Toyota</value>
+            <value description="logo">toyota.gif</value>
+        </row>
+		<row>
+            <value description="id">26</value>
+            <value description="name">Wilkinson</value>
+            <value description="logo">wilkinson.jpg</value>
+        </row>
+		<row>
+            <value description="id">27</value>
+            <value description="name">Vahine</value>
+            <value description="logo">logo-vahine.png</value>
+        </row>
+		<row>
+            <value description="id">28</value>
+            <value description="name">Crédit agricole</value>
+            <value description="logo">ca.jpg</value>
+        </row>
+
+	</table>
+
+	<table name="product">
+		<column>id</column>
+		<column>name</column>
+		<column>description</column>
+		<column>logo</column>
+		<column>BRAND_ID</column>
+		<row>
+            <value description="id">1</value>
+            <value description="name">Sucre vanillé de Madagascar</value>
+            <value description="description"></value>
+            <value description="logo">svm.jpg</value>
+            <value description="BRAND_ID">27</value>
+        </row>
+		<row>
+            <value description="id">2</value>
+            <value description="name">Sucre vanillé</value>
+            <value description="description"></value>
+            <value description="logo">sv.jpg</value>
+            <value description="BRAND_ID">27</value>
+        </row>
+		<row>
+            <value description="id">3</value>
+            <value description="name">Sucre vanilliné</value>
+            <value description="description"></value>
+            <value description="logo">sve.jpg</value>
+            <value description="BRAND_ID">27</value>
+        </row>
+		<row>
+            <value description="id">4</value>
+            <value description="name">508</value>
+            <value description="description"></value>
+            <null></null>
+            <value description="BRAND_ID">22</value>
+        </row>
+		<row>
+            <value description="id">5</value>
+            <value description="name">407</value>
+            <value description="description"></value>
+            <null></null>
+            <value description="BRAND_ID">22</value>
+        </row>
+		<row>
+            <value description="id">6</value>
+            <value description="name">308</value>
+            <value description="description"></value>
+            <null></null>
+            <value description="BRAND_ID">22</value>
+        </row>
+		<row>
+            <value description="id">7</value>
+            <value description="name">DS3</value>
+            <value description="description"></value>
+            <null></null>
+            <value description="BRAND_ID">3</value>
+        </row>
+		<row>
+            <value description="id">8</value>
+            <value description="name">C3</value>
+            <value description="description"></value>
+            <null></null>
+            <value description="BRAND_ID">3</value>
+        </row>
+		<row>
+            <value description="id">9</value>
+            <value description="name">C4</value>
+            <value description="description"></value>
+            <null></null>
+            <value description="BRAND_ID">3</value>
+        </row>
+
+	</table>
+
+	<table name="ad">
+		<column>id</column>
+		<column>BRAND_ID</column>
+		<column>PRODUCT_ID</column>
+		<column>video</column>
+		<column>type</column>
+		<row>
+            <value description="id">1</value>
+            <value description="BRAND_ID">14</value>
+            <null></null>
+            <value description="video">barilla.flv</value>
+            <value description="type">2</value>
+        </row>
+		<row>
+            <value description="id">2</value>
+            <value description="BRAND_ID">28</value>
+            <null></null>
+            <value description="video">CA.flv</value>
+            <value description="type">1</value>
+        </row>
+		<row>
+            <value description="id">3</value>
+            <value description="BRAND_ID">15</value>
+            <null></null>
+            <value description="video">castorama.flv</value>
+            <value description="type">1</value>
+        </row>
+		<row>
+            <value description="id">4</value>
+            <value description="BRAND_ID">17</value>
+            <null></null>
+            <value description="video">hm.flv</value>
+            <value description="type">4</value>
+        </row>
+		<row>
+            <value description="id">5</value>
+            <value description="BRAND_ID">19</value>
+            <null></null>
+            <value description="video">michelin.flv</value>
+            <value description="type">0</value>
+        </row>
+		<row>
+            <value description="id">6</value>
+            <value description="BRAND_ID">21</value>
+            <null></null>
+            <value description="video">numericable.flv</value>
+            <value description="type">1</value>
+        </row>
+		<row>
+            <value description="id">7</value>
+            <value description="BRAND_ID">22</value>
+            <value description="PRODUCT_ID">4</value>
+            <value description="video">peugeot_508.flv</value>
+            <value description="type">0</value>
+        </row>
+		<row>
+            <value description="id">8</value>
+            <value description="BRAND_ID">3</value>
+            <value description="PRODUCT_ID">8</value>
+            <value description="video">pub_c3.flv</value>
+            <value description="type">0</value>
+        </row>
+		<row>
+            <value description="id">9</value>
+            <value description="BRAND_ID">16</value>
+            <null></null>
+            <value description="video">pub__CTC_3.flv</value>
+            <value description="type">5</value>
+        </row>
+		<row>
+            <value description="id">10</value>
+            <value description="BRAND_ID">5</value>
+            <null></null>
+            <value description="video">pub_groupama_Taurus.flv</value>
+            <value description="type">1</value>
+        </row>
+		<row>
+            <value description="id">11</value>
+            <value description="BRAND_ID">5</value>
+            <null></null>
+            <value description="video">groupama_alain.flv</value>
+            <value description="type">1</value>
+        </row>
+		<row>
+            <value description="id">12</value>
+            <value description="BRAND_ID">20</value>
+            <null></null>
+            <value description="video">pub__kinect_accolade.flv</value>
+            <value description="type">6</value>
+        </row>
+		<row>
+            <value description="id">13</value>
+            <value description="BRAND_ID">20</value>
+            <null></null>
+            <value description="video">pub__kinect_sportsv2.flv</value>
+            <value description="type">6</value>
+        </row>
+		<row>
+            <value description="id">14</value>
+            <value description="BRAND_ID">20</value>
+            <null></null>
+            <value description="video">pub__xbox_dance_cent.flv</value>
+            <value description="type">6</value>
+        </row>
+		<row>
+            <value description="id">15</value>
+            <value description="BRAND_ID">18</value>
+            <null></null>
+            <value description="video">pub__lancome.flv</value>
+            <value description="type">3</value>
+        </row>
+		<row>
+            <value description="id">16</value>
+            <value description="BRAND_ID">23</value>
+            <null></null>
+            <value description="video">pub__sfrbt.flv</value>
+            <value description="type">1</value>
+        </row>
+		<row>
+            <value description="id">17</value>
+            <value description="BRAND_ID">24</value>
+            <null></null>
+            <value description="video">pub__stmichel.flv</value>
+            <value description="type">2</value>
+        </row>
+		<row>
+            <value description="id">18</value>
+            <value description="BRAND_ID">25</value>
+            <null></null>
+            <value description="video">pub_verso-s_2011_hp.flv</value>
+            <value description="type">0</value>
+        </row>
+		<row>
+            <value description="id">19</value>
+            <value description="BRAND_ID">26</value>
+            <null></null>
+            <value description="video">pub__WILKINSON.flv</value>
+            <value description="type">3</value>
+        </row>
+		<row>
+            <value description="id">20</value>
+            <value description="BRAND_ID">27</value>
+            <value description="PRODUCT_ID">1</value>
+            <value description="video">vahine.flv</value>
+            <value description="type">2</value>
+        </row>
+
+	</table>
+
+
+	<table name="ad_rule">
+		 <column>id</column>
+		 <column>startDate</column>
+		 <column>endDate</column>
+		 <column>classe</column>
+		 <column>AD_ID</column>
+		 <column>question</column>
+		 <column>CORRECT_ID</column>
+		 <row>
+            <value description="id">1</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">1</value>
+            <value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">2</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">2</value>
+            <value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">3</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">3</value>
+            <value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">4</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Open</value>
+            <value description="AD_ID">4</value>
+            <value description="question">Prix du Top ?</value>
+            <null></null>
+<!--            <value description="CORRECT_ID">1</value>-->
+          </row>
+		 <row>
+            <value description="id">5</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Open</value>
+            <value description="AD_ID">5</value>
+            <value description="question">Combien faites vous de kilomètre en plus ?</value>
+            <null></null>
+<!--            <value description="CORRECT_ID">5</value>-->
+          </row>
+		 <row>
+            <value description="id">6</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">6</value>
+            <value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">7</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Product</value>
+            <value description="AD_ID">7</value>
+            <value description="question">Quesl est le véhicule ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">8</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Product</value>
+            <value description="AD_ID">8</value>
+            <value description="question">Quesl est le véhicule ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">9</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">9</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">10</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">10</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">11</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">11</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">12</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">12</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">13</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">13</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">14</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">14</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">15</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">15</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">16</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">16</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">17</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">17</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">18</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">18</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">19</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Brand</value>
+            <value description="AD_ID">19</value>
+			<value description="question">Quesl est la marque ?</value>
+            <null></null>
+          </row>
+		 <row>
+            <value description="id">20</value>
+            <value description="startDate">2011-03-01</value>
+            <value description="endDate">2011-04-01</value>
+            <value description="classe">Product</value>
+            <value description="AD_ID">20</value>
+			<value description="question">Quesl est le produit ?</value>
+            <null></null>
+          </row>
+          
+	</table>
+
+
+	<table name="ad_response">
+		 <column>id</column>
+		 <column>RULE_ID</column>
+		 <column>response</column>
+ 		 <row>
+            <value description="id">1</value>
+            <value description="RULE_ID">4</value>
+            <value description="response">9,95 €</value>
+          </row>
+ 		 <row>
+            <value description="id">2</value>
+            <value description="RULE_ID">4</value>
+            <value description="response">9,99 €</value>
+          </row>
+ 		 <row>
+            <value description="id">3</value>
+            <value description="RULE_ID">4</value>
+            <value description="response">8,95 €</value>
+          </row>
+ 		 <row>
+            <value description="id">4</value>
+            <value description="RULE_ID">5</value>
+            <value description="response">10000 kilomètres</value>
+          </row>
+ 		 <row>
+            <value description="id">5</value>
+            <value description="RULE_ID">5</value>
+            <value description="response">8000 kilomètres</value>
+          </row>
+ 		 <row>
+            <value description="id">6</value>
+            <value description="RULE_ID">5</value>
+            <value description="response">12000 kilomètres</value>
+          </row>          
+	</table>
+
+     <table name="person">
+        <column>id</column>
+        <column>classe</column>
+        <column>firstName</column>
+        <column>lastName</column>
+        <column>version</column>
+        <column>webSite</column>
+        <row>
+            <value description="id">1</value>
+        	<value description="classe">Productor</value>
+            <value description="firstName"></value>
+            <value description="lastName">Epic Records</value>
+            <value description="version">1</value>
+            <value description="webSite"></value>
+        </row>
+         <row>
+            <value description="id">2</value>
+        	<value description="classe">Productor</value>
+            <value description="firstName"></value>
+            <value description="lastName">Columbia Records</value>
+            <value description="version">1</value>
+            <value description="webSite"></value>
+        </row>
+        <row>
+            <value description="id">3</value>
+        	<value description="classe">Artist</value>
+            <value description="firstName"></value>
+            <value description="lastName">ACDC</value>
+            <value description="version">1</value>
+            <value description="webSite"></value>
+        </row>
+        <row>
+            <value description="id">4</value>
+        	<value description="classe">Productor</value>
+            <value description="firstName"></value>
+            <value description="lastName">EMI</value>
+            <value description="version">1</value>
+            <value description="webSite"></value>
+        </row>
+        <row>
+            <value description="id">5</value>
+        	<value description="classe">Artist</value>
+            <value description="firstName">David</value>
+            <value description="lastName">Guetta</value>
+            <value description="version">1</value>
+            <value description="webSite"></value>
+        </row>        
+     </table>
+     
+	<table name="genre">
+		<column>id</column>
+		<column>classe</column>
+		<column>codeGenre</column>
+		<column>genre</column>
+		<row>
+            <value description="id">1</value>
+            <value description="classe">Music</value>
+            <value description="codeGenre">genre.vf</value>
+            <value description="genre">Variété Française</value>
+        </row>
+        
+		<row>
+            <value description="id">2</value>
+            <value description="classe">Music</value>
+            <value description="codeGenre">genre.ted</value>
+            <value description="genre">Techno, Electro, Dance</value>
+        </row>
+
+		<row>
+            <value description="id">3</value>
+            <value description="classe">Music</value>
+            <value description="codeGenre">genre.metal</value>
+            <value description="genre">Metal</value>
+        </row>
+        
+	</table>
+	
+	<table name="media">
+		<column>id</column>
+		<column>classe</column>
+		<column>description</column>
+		<column>duration</column>
+		<column>imgPresentation</column>
+		<column>jacket</column>
+		<column>nbAdsNeeded</column>
+		<column>releaseDate</column>
+		<column>thumbJacket</column>
+		<column>title</column>
+		<column>file</column>
+		<column>mp3Sample</column>
+	
+		<row>
+            <value description="id">1</value>
+            <value description="classe">album</value>
+            <value description="description"></value>
+            <value description="duration">200</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">30</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">Black ICE</value>
+            <null />
+            <null />
+        </row>
+		
+		<row>
+            <value description="id">2</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">261</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">01 - ACDC - Rock N Roll Train</value>
+            <value description="file">01 - ACDC - Rock N Roll Train.mp3</value>
+            <value description="mp3Sample">01 - ACDC - Rock N Roll Train.mp3</value>
+        </row>
+		<row>
+            <value description="id">3</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">214</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">02 - ACDC - Skies On Fire</value>
+            <value description="file">02 - ACDC - Skies On Fire.mp3</value>
+            <value description="mp3Sample">02 - ACDC - Skies On Fire.mp3</value>
+        </row>        
+		<row>
+            <value description="id">4</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">237</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">03 - ACDC - Big Jack</value>
+            <value description="file">03 - ACDC - Big Jack.mp3</value>
+            <value description="mp3Sample">03 - ACDC - Big Jack.mp3</value>
+        </row>        
+		<row>
+            <value description="id">5</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">202</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">04 - ACDC - Anything Goes</value>
+            <value description="file">04 - ACDC - Anything Goes.mp3</value>
+            <value description="mp3Sample">04 - ACDC - Anything Goes.mp3</value>
+        </row>        
+		<row>
+            <value description="id">6</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">189</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">05 - ACDC - War Machine</value>
+            <value description="file">05 - ACDC - War Machine.mp3</value>
+            <value description="mp3Sample">05 - ACDC - War Machine.mp3</value>
+        </row>        
+		<row>
+            <value description="id">7</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">246</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">06 - ACDC - Smash N Grab</value>
+            <value description="file">06 - ACDC - Smash N Grab.mp3</value>
+            <value description="mp3Sample">06 - ACDC - Smash N Grab.mp3</value>
+        </row>        
+		<row>
+            <value description="id">8</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">197</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">07 - ACDC - Spoilin' For A Fight</value>
+            <value description="file">07 - ACDC - Spoilin' For A Fight.mp3</value>
+            <value description="mp3Sample">07 - ACDC - Spoilin' For A Fight.mp3</value>
+        </row>        
+		<row>
+            <value description="id">9</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">208</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">08 - ACDC - Wheels</value>
+            <value description="file">08 - ACDC - Wheels.mp3</value>
+            <value description="mp3Sample">08 - ACDC - Wheels.mp3</value>
+        </row>        
+		<row>
+            <value description="id">10</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">213</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">09 - ACDC - Decibel</value>
+            <value description="file">09 - ACDC - Decibel.mp3</value>
+            <value description="mp3Sample">09 - ACDC - Decibel.mp3</value>
+        </row>        
+		<row>
+            <value description="id">11</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">200</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">10 - ACDC - Stormy May Day</value>
+            <value description="file">10 - ACDC - Stormy May Day.mp3</value>
+            <value description="mp3Sample">10 - ACDC - Stormy May Day.mp3</value>
+        </row>        
+		<row>
+            <value description="id">12</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">232</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">11 - ACDC - She Likes Rock N Roll</value>
+            <value description="file">11 - ACDC - She Likes Rock N Roll.mp3</value>
+            <value description="mp3Sample">11 - ACDC - She Likes Rock N Roll.mp3</value>
+        </row>        
+		<row>
+            <value description="id">13</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">255</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">12 - ACDC - Money Made</value>
+            <value description="file">12 - ACDC - Money Made.mp3</value>
+            <value description="mp3Sample">12 - ACDC - Money Made.mp3</value>
+        </row>        
+		<row>
+            <value description="id">14</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">280</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">13 - ACDC - Rock N Roll Dream</value>
+            <value description="file">13 - ACDC - Rock N Roll Dream.mp3</value>
+            <value description="mp3Sample">13 - ACDC - Rock N Roll Dream.mp3</value>
+        </row>        
+		<row>
+            <value description="id">15</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">202</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">14 - ACDC - Rocking All The Way</value>
+            <value description="file">14 - ACDC - Rocking All The Way.mp3</value>
+            <value description="mp3Sample">14 - ACDC - Rocking All The Way.mp3</value>
+        </row>        
+		<row>
+            <value description="id">16</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">205</value>
+            <value description="imgPresentation">acdc_black_ice.jpg</value>
+            <value description="jacket">acdc_black_ice.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2008-08-18</value>
+            <value description="thumbJacket">acdc_black_ice.jpg</value>
+            <value description="title">15 - ACDC - Black Ice</value>
+            <value description="file">15 - ACDC - Black Ice.mp3</value>
+            <value description="mp3Sample">15 - ACDC - Black Ice.mp3</value>
+        </row>
+                
+		<row>
+            <value description="id">17</value>
+            <value description="classe">album</value>
+            <value description="description"></value>
+            <value description="duration">3318</value>
+            <value description="imgPresentation">david_guetta_one_love.jpg</value>
+            <value description="jacket">david_guetta_one_love.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2009-08-20</value>
+            <value description="thumbJacket">david_guetta_one_love.jpg</value>
+            <value description="title">Love One</value>
+            <null></null>
+            <null></null>
+        </row>   
+		<row>
+            <value description="id">18</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">192</value>
+            <value description="imgPresentation">david_guetta_one_love.jpg</value>
+            <value description="jacket">david_guetta_one_love.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2009-08-20</value>
+            <value description="thumbJacket">david_guetta_one_love.jpg</value>
+            <value description="title">01 - When Love Takes Over</value>
+            <value description="file">01-david_guetta_-_when_love_takes_over.mp3</value>
+            <value description="mp3Sample">01-david_guetta_-_when_love_takes_over.mp3</value>
+        </row>  
+		<row>
+            <value description="id">19</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">182</value>
+            <value description="imgPresentation">david_guetta_one_love.jpg</value>
+            <value description="jacket">david_guetta_one_love.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2009-08-20</value>
+            <value description="thumbJacket">david_guetta_one_love.jpg</value>
+            <value description="title">02 - Gettin' Over</value>
+            <value description="file">02-david_guetta_-_gettin_over.mp3</value>
+            <value description="mp3Sample">02-david_guetta_-_gettin_over.mp3</value>
+        </row>  
+		<row>
+            <value description="id">20</value>
+            <value description="classe">Music</value>
+            <value description="description"></value>
+            <value description="duration">196</value>
+            <value description="imgPresentation">david_guetta_one_love.jpg</value>
+            <value description="jacket">david_guetta_one_love.jpg</value>
+            <value description="nbAdsNeeded">3</value>
+            <value description="releaseDate">2009-08-20</value>
+            <value description="thumbJacket">david_guetta_one_love.jpg</value>
+            <value description="title">Sexy Bitch</value>
+            <value description="file">03-david_guetta_-_sexy_bitch.mp3</value>
+            <value description="mp3Sample">03-david_guetta_-_sexy_bitch.mp3</value>
+        </row>  
+	</table>
+
+
+	<table name="media_genre">
+		<column>MEDIA_ID</column>
+		<column>GENRE_ID</column>
+		<row>
+            <value description="MEDIA_ID">1</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">2</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">3</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">4</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">5</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">6</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">7</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">8</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">9</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">10</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">11</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">12</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">13</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">14</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">15</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">16</value>
+            <value description="GENRE_ID">3</value>
+		</row>
+
+		<row>
+            <value description="MEDIA_ID">17</value>
+            <value description="GENRE_ID">2</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">18</value>
+            <value description="GENRE_ID">2</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">19</value>
+            <value description="GENRE_ID">2</value>
+		</row>
+		<row>
+            <value description="MEDIA_ID">20</value>
+            <value description="GENRE_ID">2</value>
+		</row>
+		
+		
+	</table>
+
+     <table name="music_artist">
+        <column>MUSIC_ID</column>
+        <column>ARTIST_ID</column>
+        <row>
+        	<value description="MUSIC_ID">1</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">2</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">3</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">4</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">5</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">6</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">7</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">8</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">9</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">10</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">11</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">12</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">13</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">14</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">15</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">16</value>
+            <value description="ARTIST_ID">3</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">17</value>
+            <value description="ARTIST_ID">5</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">18</value>
+            <value description="ARTIST_ID">5</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">19</value>
+            <value description="ARTIST_ID">5</value>
+        </row>
+        <row>
+        	<value description="MUSIC_ID">20</value>
+            <value description="ARTIST_ID">5</value>
+        </row>
+        
+     </table>
+     
+     <table name="media_productor">
+        <column>MEDIA_ID</column>
+        <column>PRODUCTOR_ID</column>
+        <row>
+        	<value description="MEDIA_ID">1</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">1</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">2</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">2</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">3</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">3</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">4</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">4</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">5</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">5</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">6</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">6</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">7</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">7</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">8</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">8</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">9</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">9</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">10</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">10</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">11</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">11</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">12</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">12</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">13</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">13</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">14</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">14</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">15</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">15</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">16</value>
+            <value description="PRODUCTOR_ID">1</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">16</value>
+            <value description="PRODUCTOR_ID">2</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">17</value>
+            <value description="PRODUCTOR_ID">4</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">18</value>
+            <value description="PRODUCTOR_ID">4</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">19</value>
+            <value description="PRODUCTOR_ID">4</value>
+        </row>
+        <row>
+        	<value description="MEDIA_ID">20</value>
+            <value description="PRODUCTOR_ID">4</value>
+        </row>
+
+     </table>     
+
+     <table name="album_artist">
+     	<column>MUSIC_ID</column>
+     	<column>ALBUM_ID</column>
+     	<row>
+        	<value description="MUSIC_ID">2</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">3</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">4</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">5</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">6</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">7</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">8</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">9</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">10</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">11</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">12</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">13</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">14</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">15</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">16</value>
+            <value description="ALBUM_ID">1</value>
+        </row>
+     	<row>
+        	<value description="MUSIC_ID">18</value>
+            <value description="ALBUM_ID">17</value>
+        </row>     	
+     	<row>
+        	<value description="MUSIC_ID">19</value>
+            <value description="ALBUM_ID">17</value>
+        </row>     	
+     	<row>
+        	<value description="MUSIC_ID">20</value>
+            <value description="ALBUM_ID">17</value>
+        </row>     	
+
+	</table>     
+     <table name="home">
+     	<column>id</column>
+     	<column>drawDate</column>
+     	<row>
+            <value description="id">1</value>
+            <value description="drawDate">2010-03-17</value>
+        </row>
+     </table>
+
+
+     <table name="home_media">
+        <column>HOME_ID</column>
+        <column>MEDIA_ID</column>
+        <row>
+        	<value description="HOME_ID">1</value>
+            <value description="MEDIA_ID">1</value>
+        </row>
+        <row>
+        	<value description="HOME_ID">1</value>
+            <value description="MEDIA_ID">2</value>
+        </row>
+        <row>
+        	<value description="HOME_ID">1</value>
+            <value description="MEDIA_ID">3</value>
+        </row>
+     </table>
+
+     
+
+
+    <table name="player">
+        <column>id</column>
+        <column>username</column>
+        <column>password</column>
+        <column>first_name</column>
+        <column>last_name</column>
+        <column>address</column>
+        <column>city</column>
+        <column>COUNTRY_ID</column>
+        <column>email</column>
+        <column>phone_number</column>
+        <column>postal_code</column>
+        <column>province</column>
+        <column>website</column>
+        <column>password_hint</column>
+        <column>version</column>
+        <column>account_enabled</column>
+        <column>account_expired</column>
+        <column>account_locked</column>
+        <column>credentials_expired</column>
+        <row>
+            <value description="id">-1</value>
+            <value description="username">user</value>
+            <value description="password">12dea96fec20593566ab75692c9949596833adc9</value>
+            <value description="first_name">Tomcat</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="COUNTRY_ID">1</value>
+            <value description="email">matt_raible@yahoo.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://tomcat.apache.org</value>
+            <value description="password_hint"><![CDATA[A male kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+        <row>
+            <value description="id">-2</value>
+            <value description="username">admin</value>
+            <value description="password">d033e22ae348aeb5660fc2140aec35850c4da997</value>
+            <value description="first_name">Matt</value>
+            <value description="last_name">Raible</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="COUNTRY_ID">1</value>
+            <value description="email">matt@raibledesigns.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://raibledesigns.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+    </table>
+    <table name="role">
+        <column>id</column>
+        <column>name</column>
+        <column>description</column>
+        <row>
+            <value description="id">-1</value>
+            <value description="name">ROLE_ADMIN</value>
+            <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
+        </row>
+        <row>
+            <value description="id">-2</value>
+            <value description="name">ROLE_USER</value>
+            <value description="description"><![CDATA[Default role for all Users]]></value>
+        </row>
+    </table>
+    <table name="user_role">
+        <column>user_id</column>
+        <column>role_id</column>
+        <row>
+            <value description="user_id">-1</value>
+            <value description="role_id">-2</value>
+        </row>
+        <row>
+            <value description="user_id">-2</value>
+            <value description="role_id">-1</value>
+        </row>
+    </table>
+    
+    
+   <table name="goose_game">
+        <column>id</column>
+        <row>
+            <value description="id">1</value>
+        </row>
+    </table>
+   
+   <table name="goose_case">
+        <column>classe</column>
+        <column>id</column>
+        <column>number</column>
+        <column>value</column>
+        <column>GOOSELEVEL_ID</column>
+        <column>GOOSEJUMP_ID</column>
+        <column>REDUCTION_ID</column>
+        <row>
+            <value description="classe">StartLevel</value>
+            <value description="id">1</value>
+            <value description="number">1</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">EndLevel</value>
+            <value description="id">2</value>
+            <value description="number">10</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">3</value>
+            <value description="number">2</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">4</value>
+            <value description="number">3</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">5</value>
+            <value description="number">4</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">6</value>
+            <value description="number">5</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">7</value>
+            <value description="number">6</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">8</value>
+            <value description="number">7</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">9</value>
+            <value description="number">8</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+        <row>
+            <value description="classe">AdPot</value>
+            <value description="id">10</value>
+            <value description="number">9</value>
+            <value description="value">0</value>
+            <null></null>
+            <null></null>
+            <null></null>
+        </row>
+
+    </table>  
+   
+   
+   <table name="goose_level">
+        <column>id</column>
+        <column>level</column>
+        <column>value</column>
+        <column>START_ID</column>
+        <column>END_ID</column>
+        <column>GOOSE_GAME_ID</column>
+        <row>
+            <value description="id">1</value>
+            <value description="level">0</value>
+            <value description="value">0</value>
+            <value description="START_ID">1</value>
+            <value description="END_ID">10</value>
+            <value description="GOOSE_GAME_ID">1</value>
+        </row>
+    </table>    
+    
+</dataset>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="600" height="100" backgroundColor="#726E6E" cornerRadius="11" dropShadowVisible="true">
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+	</fx:Declarations>
+	<s:Label text="Veuillez patienter jusqu'à la fin du téléchargement" left="10" right="10" bottom="10" top="10" verticalAlign="middle" textAlign="center" fontFamily="Verdana" fontSize="18" fontWeight="bold" color="#FFFFFF"/>
+</s:TitleWindow>

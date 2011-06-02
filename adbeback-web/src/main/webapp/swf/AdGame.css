@@ -1,0 +1,32 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+global
+{
+	font-family: Verdana;
+	font-weight: normal;
+}
+
+s|Button
+{
+	color: #FFFFFF;
+	cornerRadius: 11;
+	fontSize: 23;
+}
+
+s|Label
+{
+	color: #FFFFFF;
+}
+
+s|Label.redLabel
+{
+	color: #E91616;
+	fontFamily: Verdana;
+	fontSize: 18;
+	fontWeight: bold;
+	textAlign: center;
+	verticalAlign: middle;
+}

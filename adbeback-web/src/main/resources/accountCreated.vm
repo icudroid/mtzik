@@ -1,0 +1,10 @@
+${message}
+
+Username: ${player.username}
+Password: ${player.confirmPassword}
+
+Pour valider votre compte connectez vous à l'adresse suivante :  ${applicationURL}/validate.html?key=${player.passwordHint}&username=${player.username}
+
+Login at: ${applicationURL}
+
+Toute l'équipe de MTzik vous remercie

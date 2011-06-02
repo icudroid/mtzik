@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="0" minHeight="0" creationComplete="initApp(event)">
+	<fx:Script>
+		<![CDATA[
+			import flash.external.*;
+			import mx.events.FlexEvent;
+			import flash.media.*;
+			import flash.net.URLRequest;
+			
+			protected var channel:SoundChannel;
+			
+			public function play(id:String):void{
+				if(channel!=null){
+					channel.stop();	
+				}
+				var urlMusic:URLRequest = new URLRequest('/play/sample/'+id+'.mp3');
+				urlMusic.method = URLRequestMethod.GET;
+				var snd:Sound = new Sound(urlMusic);
+				channel = snd.play();
+				channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+			}
+			
+			public function soundCompleteHandler(e:Event):void {
+				if (ExternalInterface.available) {
+					ExternalInterface.call("AdBeBack.SoundAppEndPlay");
+				} 
+			}
+			
+			public function stop():void{
+				if(channel!=null){
+					channel.stop();	
+				}
+			}
+			
+			protected function initApp(event:FlexEvent):void{
+				ExternalInterface.addCallback("play", play);
+				ExternalInterface.addCallback("stop", stop);
+				
+				if (ExternalInterface.available) {
+					ExternalInterface.call("AdBeBack.SoundAppReady");
+				} 
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+	</fx:Declarations>
+	
+</s:Application>

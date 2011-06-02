@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+    <http auto-config="true" lowercase-comparisons="false">
+        <!--intercept-url pattern="/images/*" filters="none"/>
+        <intercept-url pattern="/styles/*" filters="none"/>
+        <intercept-url pattern="/scripts/*" filters="none"/-->
+        <intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
+        
+        <intercept-url pattern="/img/*" filters="none"/>
+        <intercept-url pattern="/flv/*" access="ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/flv/assets/*" filters="none" />
+        
+        <intercept-url pattern="/home/*.json" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/search/*.json" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/new-products/*.json" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/best-download/*.json" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/adgame/*.json" access="ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/dnm/*.zip" access="ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/play/sample/*.mp3" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/account/*.json" access="ROLE_ADMIN,ROLE_USER"/>
+        
+        <intercept-url pattern="/home.*.html" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/home.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/passwordHint.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/signup.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/search.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/new-products.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/best-download.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/account.html*" access="ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/adgame.html*" access="ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/my-musics.html*" access="ROLE_ADMIN,ROLE_USER"/>
+        
+        
+<!--        <session-management>-->
+<!--        	<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />-->
+<!--    	</session-management>-->
+<!--    	<logout logout-url="/logout.jsp" logout-success-url="/home.html" invalidate-session="true" />-->
+        
+        <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" login-processing-url="/j_security_check"/>
+        <remember-me user-service-ref="playerDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="playerDao">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->
+    <!-- <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/> -->
+
+    <global-method-security>
+        <protect-pointcut expression="execution(* *..service.PlayerManager.getPlayers(..))" access="ROLE_ADMIN"/>
+        <protect-pointcut expression="execution(* *..service.PlayerManager.removePlayer(..))" access="ROLE_ADMIN"/>
+    </global-method-security>
+</beans:beans>

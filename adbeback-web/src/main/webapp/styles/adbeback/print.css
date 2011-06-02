@@ -1,0 +1,24 @@
+/* —————————————————————————————— printable version —————————————————————————————— */
+@media print {
+	* {
+		background: none !important;
+		background-color: white !important;
+	}
+	div#left_column,div#right_column,div#footer,a.button,span.button,.button,ul#usefull_link_block,div#header_user,#languages_block_top,#search_block_top,#currencies_block_top,ul#header_links,ul.idTabs,#availability_statut br
+		{
+		display: none;
+	}
+	div#center_column {
+		width: 100%;
+	}
+	input.text {
+		border: 1px solid gray;
+	}
+	.block_hidden_only_for_screen {
+		display: block;
+		margin-top: 1em;
+	}
+	#more_info_sheets #idTab1 {
+		width: 530px;
+	}
+}

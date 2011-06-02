@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+
+			   minWidth="750" 
+			   minHeight="600"
+			   
+			   width.Win="600"
+			   height.Win="230"
+			   minWidth.Win="600"
+			   minHeight.Win="230"
+			   
+			   width.TypeGame="600"
+			   height.TypeGame="230"
+			   minWidth.TypeGame="600"
+			   minHeight.TypeGame="230"
+
+			   minWidth.NoTimeLimit="1024"
+			   minHeight.NoTimeLimit="600"
+			   
+			   minWidth.TimeLimit="1024"
+			   minHeight.TimeLimit="600"
+			   
+			   width.Lost="600"
+			   height.Lost="230"
+			   minWidth.Lost="600"
+			   minHeight.Lost="230"
+			   
+			   width.Pause="600"
+			   height.Pause="230"
+			   minWidth.Pause="600"
+			   minHeight.Pause="230"
+			   
+			   width.WinTimeLimit="750"
+			   height.WinTimeLimit="420"
+			   minHeight.WinTimeLimit="230"
+			   minWidth.WinTimeLimit="600"
+
+			   backgroundColor="#E9E9E9" 
+			   currentState="TypeGame" 
+			   applicationComplete="init()"
+			   
+			   >
+	<s:layout>
+		<s:HorizontalLayout paddingLeft.TypeGame="10" paddingRight.TypeGame="10" paddingTop.TypeGame="10" paddingBottom.TypeGame="10" verticalAlign.Win="top"/>
+	</s:layout>
+	<fx:Style source="AdGame.css"/>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.serialization.json.JSON;
+			import com.hurlant.crypto.Crypto;
+			import com.hurlant.crypto.hash.HMAC;
+			import com.hurlant.crypto.hash.IHash;
+			import com.hurlant.crypto.prng.Random;
+			import com.hurlant.crypto.symmetric.ICipher;
+			import com.hurlant.crypto.symmetric.IMode;
+			import com.hurlant.crypto.symmetric.IPad;
+			import com.hurlant.crypto.symmetric.IVMode;
+			import com.hurlant.crypto.symmetric.NullPad;
+			import com.hurlant.crypto.symmetric.PKCS5;
+			import com.hurlant.util.Base64;
+			import com.hurlant.util.Hex;
+			
+			import flash.display.StageDisplayState;
+			import flash.events.IOErrorEvent;
+			import flash.events.ProgressEvent;
+			import flash.geom.Point;
+			import flash.media.Video;
+			import flash.net.FileReference;
+			import flash.net.URLRequest;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.core.IFlexDisplayObject;
+			import mx.events.ResizeEvent;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.HTTPService;
+			
+			import org.bytearray.gif.player.GIFPlayer;
+			import org.osmf.display.ScaleMode;
+			import org.osmf.display.ScaleModeUtils;
+			import org.osmf.events.TimeEvent;
+			import org.osmf.net.NetLoader;
+			import org.osmf.net.NetStreamCodes;
+			
+			 
+			
+			protected var unlockCode:String;
+			protected var sessionId:String;
+			protected var maxTime:Number;
+			protected var minScoreExt:Number;
+			
+			protected var game:ArrayCollection;
+			protected var currentAd:Number = 0;
+			
+			protected var possibilitiesId:Array;
+			protected var socket:Socket;
+			protected var urlCreate:String = "";
+			protected var timer:Timer;
+			protected var userScore:Number =0;
+			protected var typeGame:String;
+			protected var urlMusic:URLRequest;
+			protected var urlLoader:URLLoader;
+			protected var finishDl:Boolean = false;
+			protected var winGame:Boolean = false;
+			protected var dlg:IFlexDisplayObject = null;
+			
+			protected var videoUrlLoader:URLLoader;
+	     	protected var stream:NetStream;
+      		protected var video:Video;	 
+			protected var nbPart:Number;
+			protected var urlVideoAd:String;
+			protected var currentPart:Number;
+			protected var duration:Number;
+			protected var timerForEndVideo:Timer;
+			protected var nc:NetConnection;
+			protected var loading:GIFPlayer;
+			
+			[Bindable]
+			protected var images:ArrayCollection =new ArrayCollection();
+
+			[Bindable]
+			protected var casesData:ArrayCollection =new ArrayCollection();
+			
+			[Bindable]
+			protected var videoH:Number;
+			
+			[Bindable]
+			protected var videoW:Number;
+			
+			protected var createService:HTTPService = new HTTPService;
+			protected var endService:HTTPService = new HTTPService;
+			protected var playService:HTTPService = new HTTPService();
+			protected var noResponseService:HTTPService = new HTTPService();
+			protected var nbPartsService:HTTPService = new HTTPService();
+			
+			protected var moreTimer:Timer;
+			
+			protected var loaded:Boolean = false;
+			
+			[Embed (source="assets/croix.png" )] 
+			protected static const croixImg:Class;
+			/*****************************************************************************************************/
+			/* init*/
+			/*****************************************************************************************************/
+			private function init():void {
+				sessionId=this.parameters.idSession;
+				stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenHandler);
+			}
+
+			/*****************************************************************************************************/
+			/* fullScreenHandler*/
+			/*****************************************************************************************************/
+			private function fullScreenHandler(evt:FullScreenEvent):void {
+				if (evt.fullScreen) {
+					// traitement spécifique à faire lors du passage en plein écran
+				} else {
+					//arreter le jeu
+					if(currentState=="TimeLimit" || currentState=="NoTimeLimit"){
+						timer.stop();
+						timerForEndVideo.stop();
+						//adPlayer.pause();
+						stream.pause();
+						currentState = "Pause";
+						this.setStyle('backgroundColor',"#E9E9E9"); 
+					}
+				}
+			}
+
+			/*****************************************************************************************************/
+			/* toggleFullScreen*/
+			/*****************************************************************************************************/
+			private function toggleFullScreen():void {
+				try {
+					switch (stage.displayState) {
+						case StageDisplayState.FULL_SCREEN:
+							// si on est déjà en FULL SCREEN, on se remet en normal
+							stage.displayState = StageDisplayState.NORMAL;
+							break;
+						default:
+							// si on est pas en full screen, on passe en plein écran
+							stage.displayState = StageDisplayState.FULL_SCREEN;
+							break;
+					}
+				} catch (err:SecurityError) {
+					// ignore
+				}
+			}
+
+			/*****************************************************************************************************/
+			/* DownloadMusic*/
+			/*****************************************************************************************************/
+			protected function DownloadMusic():void
+			{
+				urlMusic = new URLRequest('/dnm/musics.zip');
+				urlMusic.method = URLRequestMethod.GET;
+            	urlMusic.data = new URLVariables('JSESSIONID=sessionId');
+				
+				urlLoader = new URLLoader();
+				urlLoader.dataFormat = URLLoaderDataFormat.BINARY ;
+				progressBar.source = urlLoader;
+				urlLoader.addEventListener(Event.COMPLETE, finishDlMusic);    
+				urlLoader.load(urlMusic);
+			}
+			
+			/*****************************************************************************************************/
+			/* finishDlMusic*/
+			/*****************************************************************************************************/
+			protected function finishDlMusic(event:Event):void{
+				if(winGame == true && finishDl== false){
+					finishDl = true;
+					if(dlg!=null){
+						dlg.visible = false;
+					}
+					endGame("Win");
+				}else{
+					finishDl = true;
+				}
+				
+			}
+			
+			/*****************************************************************************************************/
+			/* BtnNoTimeLimit_clickHandler*/
+			/*****************************************************************************************************/
+			protected function BtnNoTimeLimit_clickHandler(event:MouseEvent):void
+			{
+				typeGame = "NoTimeLimit";
+				currentState = "NoTimeLimit";
+				this.setStyle('backgroundColor',"#000000");
+				toggleFullScreen();
+				createService.url = "/json/adgame/create.json";
+				createService.request.typeGame = "NoTimeLimit";
+				createService.request.JSESSIONID = sessionId;
+				createService.addEventListener(ResultEvent.RESULT, onResulCreateGame);    
+				createService.send();
+			}
+			
+			/*****************************************************************************************************/
+			/* timeHandle*/
+			/*****************************************************************************************************/
+			public function timeHandle(event:TimerEvent):void {
+				var t:Number = timer.currentCount;
+				if(currentState == "NoTimeLimit"){
+					time.text = ((t/60<10)?"0":"")+((int)(t/60)).toString()+" : "+((t%60<10)?"0":"")+(t%60).toString(); 
+				}else{
+					time.text = (((maxTime-t)/60<10)?"0":"")+((int)((maxTime-t)/60)).toString()+" : "+(((maxTime-t)%60<10)?"0":"")+((maxTime-t)%60).toString(); 
+				}
+			}
+			
+			protected function redrawGooseGame(event:ResultEvent):void{
+				var jsonGooseGame:Object = JSON.decode(event.result as String);
+				casesData = new ArrayCollection(jsonGooseGame as Array);
+			}
+			
+			/*****************************************************************************************************/
+			/* endLimitTime*/
+			/*****************************************************************************************************/
+			protected function endLimitTime(event:TimerEvent):void {
+				doEndLimitTime();
+			}
+			
+			protected function getUnlockCodeResult(event:ResultEvent):void{
+				var json:Object = JSON.decode(event.result as String);
+				/*txtUnlockCode.text = json.unlockCode;*/
+				unlockCode = json.unlockCode;
+			}
+			
+			protected function onresultEndLimitGame(event:ResultEvent):void{
+				var json:Object = JSON.decode(event.result as String);
+
+				stream.pause();
+				timerForEndVideo.stop();
+				timer.stop();
+
+				
+				if(json.status == "WinLimitTime"){
+					currentState = "WinTimeLimit";
+					setStyle('backgroundColor',"#E9E9E9");
+					toggleFullScreen();
+					if(json.message !=null){
+						txtMsgWin.text = json.message.toString();
+					}
+					
+					//reaffichage du goosegame
+					var winService:HTTPService = new HTTPService();
+					winService.request.JSESSIONID = sessionId;
+					winService.url = "/json/adgame/getUnlockCode.json";
+					winService.addEventListener(ResultEvent.RESULT,getUnlockCodeResult);    
+					winService.send();
+					
+					getGooseGamePlayer();
+				}else{
+					endGame(json.status);
+				}
+			}
+			
+			protected function doEndLimitTime():void {
+				endService.url = "/json/adgame/endLimitGame.json";
+				endService.request.JSESSIONID = sessionId;
+				endService.addEventListener(ResultEvent.RESULT, onresultEndLimitGame);    
+				endService.send();
+			}
+
+			/*****************************************************************************************************/
+			/* BtnLimitTime_clickHandler*/
+			/*****************************************************************************************************/
+			protected function BtnLimitTime_clickHandler(event:MouseEvent):void
+			{
+				typeGame = "TimeLimit";
+				currentState = "TimeLimit";
+				this.setStyle('backgroundColor',"#000000");
+				toggleFullScreen();
+				
+				getGooseGamePlayer();
+				
+				createService.url = "/json/adgame/create.json";
+				createService.request.typeGame = "TimeLimit";
+				createService.request.JSESSIONID = sessionId;
+				createService.addEventListener(ResultEvent.RESULT, onResulCreateGame);    
+				createService.send();
+			}
+
+			/*****************************************************************************************************/
+			/* Ad_clickHandler*/
+			/*****************************************************************************************************/
+			protected function Ad_clickHandler(event:MouseEvent,num:Number):void
+			{
+				if(moreTimer!=null){
+					moreTimer.stop();
+				}
+				if(loaded==true){
+					playService.url = "/json/adgame/play.json";
+					playService.request.num =currentAd-1;
+					playService.request.id = possibilitiesId[num];
+					playService.addEventListener(ResultEvent.RESULT, onResulResponse);    
+					playService.send();
+				}
+			}
+
+			/*****************************************************************************************************/
+			/* endAd*/
+			/*****************************************************************************************************/
+			protected function endAd():void{
+				moreTimer = new Timer(2500, 1);
+				moreTimer.addEventListener("timerComplete",  function():void{
+					noResponseService.url = "/json/adgame/noresponse.json";
+					noResponseService.request.num =currentAd-1;
+					noResponseService.addEventListener(ResultEvent.RESULT, onResulResponse);    
+					noResponseService.send();
+				});
+				moreTimer.start();
+			}
+			
+			/*****************************************************************************************************/
+			/* onResulResponse */
+			/*****************************************************************************************************/
+			private function onResulResponse(event:ResultEvent):void{
+				var json:Object = JSON.decode(event.result as String);
+				score.text = json.score.toString() + ' '+((json.score>1)?'points':'point');
+				userScore = json.score;
+				if(json.correct!=null){
+					var showResponseTimer:Timer = new Timer(2500, 1);
+					showResponseTimer.addEventListener("timerComplete",  function():void{
+						imgResponseOK.visible=false;
+						imgResponseKO.visible=false;
+					});
+					showResponseTimer.start();
+					if(json.correct){
+						imgResponseOK.visible=true;
+						imgResponseKO.visible=false;
+					}else{
+						imgResponseKO.visible=true;
+						imgResponseOK.visible=false;
+						images.addItem({source:croixImg});
+					}
+				}
+				
+				if(userScore >= minScoreExt){
+					btnDlnNow.visible = true;
+				} 
+				
+				if(json.status == "WinLimitTime"){
+					timer.stop();
+					stream.pause();
+					doEndLimitTime();
+				}else if(json.status != "Playing"){
+					endGame(json.status);
+				}else{
+					drawNextQuestion();
+				}
+			}
+
+			/*****************************************************************************************************/
+			/* endGame*/
+			/*****************************************************************************************************/
+			private function endGame(status:String):void{
+				if(status=="Win"){
+					winGame=true;
+					if(finishDl==true){
+						stream.pause();
+						currentState = "Win";
+						this.setStyle('backgroundColor',"#E9E9E9");
+						toggleFullScreen();
+						var winService:HTTPService = new HTTPService();
+						winService.request.JSESSIONID = sessionId;
+						winService.url = "/json/adgame/getUnlockCode.json";
+						winService.addEventListener(ResultEvent.RESULT, function onWinResult(event:ResultEvent):void{
+							var json:Object = JSON.decode(event.result as String);
+							/*txtUnlockCode.text = json.unlockCode;*/
+							unlockCode = json.unlockCode;
+						});    
+						winService.send();
+					}else{
+						dlg = PopUpManager.createPopUp(this,WaitDl,true);
+						PopUpManager.centerPopUp(dlg);
+						//adPlayer.stop();
+						stream.pause();
+					}
+				}else if(status=="Lost"){
+					currentState = "Lost";
+					stream.pause();
+					this.setStyle('backgroundColor',"#E9E9E9");
+					toggleFullScreen();
+				}
+			}
+			
+						
+			/*****************************************************************************************************/
+			/* finishDlMusic*/
+			/*****************************************************************************************************/
+			protected function finishDlVideoPart(event:Event):void{
+				loaded = true;
+				imgLoading.visible=false;
+				stream.appendBytes(videoUrlLoader.data);
+				if(currentPart<nbPart){
+					loadNext();
+				}
+			}
+
+			/*****************************************************************************************************/
+			/* loadNext*/
+			/*****************************************************************************************************/
+			protected function loadNext():void{
+				currentPart++;
+				videoUrlLoader = new URLLoader();
+				videoUrlLoader.dataFormat = URLLoaderDataFormat.BINARY ;
+				videoUrlLoader.addEventListener(Event.COMPLETE, finishDlVideoPart);    
+				videoUrlLoader.load(new URLRequest(urlVideoAd+currentPart.toString()));
+			}
+			
+
+			/*****************************************************************************************************/
+			/* total_time*/
+			/*****************************************************************************************************/
+			protected function total_time(event:Object):void {
+				resizeVideo();
+				duration = event.duration;
+				if(timerForEndVideo==null){
+					timerForEndVideo =new Timer(1000);
+					timerForEndVideo.addEventListener(TimerEvent.TIMER, function():void{
+						if(stream.time+0.5>=duration){
+							endAd();
+							timerForEndVideo.stop();
+						}
+					});
+				}
+				timerForEndVideo.start();
+			}
+			
+			/*****************************************************************************************************/
+			/* onResulNbParts*/
+			/*****************************************************************************************************/
+			private function onResulNbParts(event:ResultEvent):void{
+				var json:Object = JSON.decode(event.result as String);
+				if(nc==null){
+					nc = new NetConnection();
+	            	nc.connect(null);
+	            }             
+	            stream = new NetStream(nc);
+	            
+	            var client : Object = new Object();
+				client.onMetaData = total_time;
+				stream.client = client;
+
+	           	if(video == null){
+				    video = new Video(adPlayer.width,adPlayer.height);
+				    adPlayer.addChild(video);
+				}  
+	            video.attachNetStream(stream);
+				stream.play(null);
+				
+				nbPart = json.parts;
+				currentPart = 0;
+
+				videoUrlLoader = new URLLoader();
+				videoUrlLoader.dataFormat = URLLoaderDataFormat.BINARY ;
+				videoUrlLoader.addEventListener(Event.COMPLETE, finishDlVideoPart);    
+				videoUrlLoader.load(new URLRequest(urlVideoAd+currentPart.toString()));
+			}
+			
+			
+			/*****************************************************************************************************/
+			/* drawNextQuestion*/
+			/*****************************************************************************************************/
+			private function drawNextQuestion():void{
+					loaded = false;
+					if(loading==null){
+						loading = new GIFPlayer();
+						imgLoading.addChild ( loading );
+						loading.load(new URLRequest("swf/assets/loading.gif"));
+					}
+					imgLoading.visible=true;
+				
+					//adPlayer.source='/img/flv/'+game[currentAd].url;
+					if(timerForEndVideo!=null){
+						timerForEndVideo.reset();
+					}
+					
+					urlVideoAd = '/flv/'+game[currentAd].url+'/';
+					nbPartsService.url = '/json/adgame/nbParts/'+game[currentAd].url+'.json';
+					nbPartsService.request.JSESSIONID = sessionId;
+					nbPartsService.addEventListener(ResultEvent.RESULT, onResulNbParts);    
+					nbPartsService.send();
+					
+					var possibilities:ArrayCollection = new ArrayCollection(game[currentAd].possibilities as Array);
+					
+					if(possibilities[0].type == 0){
+						Ad1.visible = true;
+						TxtAd1.visible = false;
+						Ad1.source = '/img/'+possibilities[0].answer;
+					}else if(possibilities[0].type == 1){
+						Ad1.visible = true;
+						TxtAd1.visible = false;
+						Ad1.source = '/img/'+possibilities[0].answer;
+					}else if(possibilities[0].type == 2){
+						Ad1.visible = false;
+						TxtAd1.visible = true;
+						TxtAd1.text = possibilities[0].answer;
+					}else if(possibilities[0].type == 3){
+						Ad1.visible = false;
+						TxtAd1.visible = true;
+						TxtAd1.text = possibilities[0].answer;
+					}
+					
+					if(possibilities[1].type == 0){
+						Ad2.visible = true;
+						TxtAd2.visible = false;
+						Ad2.source = '/img/'+possibilities[1].answer;
+					}else if(possibilities[1].type == 1){
+						Ad2.visible = true;
+						TxtAd2.visible = false;
+						Ad2.source = '/img/'+possibilities[1].answer;
+					}else if(possibilities[1].type == 2){
+						Ad2.visible = false;
+						TxtAd2.visible = true;
+						TxtAd2.text = possibilities[1].answer;
+					}else if(possibilities[1].type == 3){
+						Ad2.visible = false;
+						TxtAd2.visible = true;
+						TxtAd2.text = possibilities[1].answer;
+					}
+					
+					if(possibilities[2].type == 0){
+						Ad3.visible = true;
+						TxtAd3.visible = false;
+						Ad3.source = '/img/'+possibilities[2].answer;
+					}else if(possibilities[2].type == 1){
+						Ad3.visible = true;
+						TxtAd3.visible = false;
+						Ad3.source = '/img/'+possibilities[2].answer;
+					}else if(possibilities[2].type == 2){
+						Ad3.visible = false;
+						TxtAd3.visible = true;
+						TxtAd3.text = possibilities[2].answer;
+					}else if(possibilities[2].type == 3){
+						Ad3.visible = false;
+						TxtAd3.visible = true;
+						TxtAd3.text = possibilities[2].answer;
+					}
+					
+					possibilitiesId = new Array();
+					possibilitiesId.push(possibilities[0].id);
+					possibilitiesId.push(possibilities[1].id);
+					possibilitiesId.push(possibilities[2].id);
+					
+					question.text = game[currentAd].question;
+					//adPlayer.play();
+					currentAd++;
+			}
+			
+			/*****************************************************************************************************/
+			/* onResulCreateGame*/
+			/*****************************************************************************************************/
+			private function onResulCreateGame(event:ResultEvent):void{
+				var json:Object = JSON.decode(event.result as String);
+				minScore.text = json.minScore;
+				minScoreExt = json.minScore;
+				maxTime = json.timeLimite;
+				userScore = 0;
+				game = new ArrayCollection(json.game as Array);
+				
+				if(currentState == "TimeLimit"){
+					timer = new Timer(1000,maxTime);
+					timer.addEventListener(TimerEvent.TIMER, timeHandle);
+					timer.addEventListener(TimerEvent.TIMER_COMPLETE, endLimitTime);
+				}else{
+					if(timer!=null){
+						timer.stop();	
+					}else{
+						timer = new Timer(1000);
+						timer.addEventListener(TimerEvent.TIMER, timeHandle);
+					}
+				}
+				
+				currentAd = 0;
+				drawNextQuestion();
+				timer.start();
+				DownloadMusic();
+			}
+			
+			/*****************************************************************************************************/
+			/* getGooseGamePlayer*/
+			/*****************************************************************************************************/
+			private function getGooseGamePlayer():void{
+				var gooseService:HTTPService = new HTTPService;
+				gooseService.url = "/json/adgame/getGooseGame.json";
+				gooseService.request.JSESSIONID = sessionId;
+				gooseService.addEventListener(ResultEvent.RESULT, redrawGooseGame);    
+				gooseService.send();
+			}
+			
+			/*****************************************************************************************************/
+			/* btnDownloadMusics_clickHandler*/
+			/*****************************************************************************************************/
+			protected function btnDownloadMusics_clickHandler(event:MouseEvent):void
+			{
+				var fileRef:FileReference = new FileReference();
+				var kdata:ByteArray = Hex.toArray(Hex.fromString(unlockCode));
+				var name:String = "blowfish-cbc";
+				var pad:IPad = new PKCS5;
+				var mode:ICipher = Crypto.getCipher(name, kdata, pad);
+				pad.setBlockSize(mode.getBlockSize());
+				var ivmode:IVMode = mode as IVMode;
+				ivmode.IV = Hex.toArray(Hex.fromString('00000000'));
+				var data:ByteArray = new ByteArray();
+				data.writeBytes(urlLoader.data);
+				mode.decrypt(data);
+				fileRef.addEventListener("complete",function():void{
+					var emptyService:HTTPService = new HTTPService();
+					emptyService.url = "/json/cart/empty.json";
+					emptyService.request.JSESSIONID = sessionId;
+					emptyService.addEventListener(ResultEvent.RESULT, function():void{
+						navigateToURL(new URLRequest('home.html'),'_self');
+					});    
+					emptyService.send();
+				});
+				fileRef.save(data,"musics.zip");
+			}
+			 
+			/*****************************************************************************************************/
+			/* btnReplay_clickHandler*/
+			/*****************************************************************************************************/
+			protected function btnReplay_clickHandler(event:MouseEvent):void
+			{
+				maxTime = 0;
+				minScoreExt= 0;
+				game = null;
+				currentAd = 0;
+				possibilitiesId= null;
+				timer.stop();
+				timerForEndVideo.stop();
+				timer.reset();
+				userScore =0;
+				urlMusic= null;
+				urlLoader= null;
+				finishDl = false;
+				currentState = "TypeGame";
+				this.setStyle('backgroundColor',"#E9E9E9");
+				winGame = false;
+				images.removeAll();
+				btnDlnNow.visible = false;
+				score.text="0 Point";
+			}
+
+			/*****************************************************************************************************/
+			/* btnResume_clickHandler*/
+			/*****************************************************************************************************/
+			protected function btnResume_clickHandler(event:MouseEvent):void
+			{
+				toggleFullScreen();
+				timer.start();
+				timerForEndVideo.start();
+				currentState = typeGame;
+				this.setStyle('backgroundColor',"#000000");
+				//adPlayer.play();
+				stream.resume();
+			}
+
+			/*****************************************************************************************************/
+			/* btnResume_clickHandler*/
+			/*****************************************************************************************************/
+			protected function btnDlnNow_clickHandler(event:MouseEvent):void
+			{
+				doEndLimitTime();
+			}
+			
+			
+
+			protected function resizeVideo():void{
+				var res:Point =  ScaleModeUtils.getScaledSize(ScaleMode.LETTERBOX, adPlayer.width,adPlayer.height,video.videoWidth,video.videoHeight);
+				video.width = res.x;
+				video.height = res.y;
+				
+				video.x = (adPlayer.width - res.x)/2;
+				video.y = (adPlayer.height - res.y)/2;
+			}
+			
+			protected function adPlayer_resizeHandler(event:ResizeEvent):void
+			{
+				resizeVideo();
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="TimeLimit"/>
+		<s:State name="NoTimeLimit"/>
+		<s:State name="TypeGame"/>
+		<s:State name="Win"/>
+		<s:State name="Lost"/>
+		<s:State name="Pause"/>
+		<s:State name="WinTimeLimit"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+	</fx:Declarations>
+	<s:layout.TypeGame>
+		<s:VerticalLayout paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" horizontalAlign="center" gap="38"/>
+	</s:layout.TypeGame>
+	<s:layout.Win>
+		<s:VerticalLayout horizontalAlign="center" paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="20"/>
+	</s:layout.Win>
+	<s:layout.Lost>
+		<s:VerticalLayout horizontalAlign="center" paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="20"/>
+	</s:layout.Lost>
+	<s:layout.Pause>
+		<s:VerticalLayout horizontalAlign="center" gap="20" paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20"/>
+	</s:layout.Pause>
+	<s:layout.WinTimeLimit>
+		<s:VerticalLayout horizontalAlign="center" paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="20"/>
+	</s:layout.WinTimeLimit>
+	<s:HGroup width="100%" height="100%" verticalAlign="contentJustify" includeIn="NoTimeLimit,TimeLimit">
+		<s:VGroup width="100%" height="100%" horizontalAlign="center" gap="10" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+			<s:Label text="Jeu MTzik : " color="#FFFFFF" fontFamily="Verdana" fontSize="26"  includeIn="TimeLimit"/>
+				<s:DataGroup itemRenderer="GooseGameRenderer" dataProvider="{casesData}"  width="100%" height="5%" includeIn="TimeLimit">
+					<s:layout>
+						<s:HorizontalLayout verticalAlign="middle" gap="10"/>
+					</s:layout>
+				</s:DataGroup>
+			<s:BorderContainer width="100%" height="100" backgroundAlpha="0.0" cornerRadius="4" borderColor="#696969" borderWeight="2">
+				<s:layout>
+					<s:HorizontalLayout verticalAlign="middle" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10"/>
+				</s:layout>
+				<s:Label text="Score minimum pour télécharger :" color="#FFFFFF" fontFamily="Verdana" fontSize="23"/>
+				<s:Button includeIn="TimeLimit" label="Télécharger" color="#21739A" chromeColor="#21739A" height="45" id="btnDlnNow" click="btnDlnNow_clickHandler(event)" visible="false"/>
+				<s:VGroup width="100%" height="100%" horizontalAlign="right">
+					<s:BorderContainer width="150" height="75" borderWeight="2" cornerRadius="4" backgroundAlpha="1.0">
+						<s:layout>
+							<s:HorizontalLayout verticalAlign="middle"/>
+						</s:layout>
+						<s:backgroundFill>
+							<s:LinearGradient y="10" scaleX="30" rotation="90">
+								<s:entries>
+									<s:GradientEntry color="0x00f4f5" alpha="1"/>
+									<s:GradientEntry color="0x112756" alpha="1" />
+								</s:entries>
+							</s:LinearGradient>
+						</s:backgroundFill>
+						<s:Label width="100%" height="100%" textAlign="center" verticalAlign="middle" color="#FFFFFF" fontFamily="Verdana" fontSize="42" fontWeight="bold" id="minScore"/>
+					</s:BorderContainer>
+				</s:VGroup>
+			</s:BorderContainer>
+			<s:BorderContainer width="100%" height="100%" backgroundAlpha="0.0">
+				<mx:UIComponent width="100%" height="100%" id="adPlayer" resize="adPlayer_resizeHandler(event)"/>
+				<mx:Image id="imgResponseOK" visible="false" right="10" top="10" source="@Embed('assets/ok.png')"/>
+				<mx:Image id="imgResponseKO" visible="false" right="10" top="10" source="@Embed('assets/ko.png')"/>
+				<mx:UIComponent id="imgLoading" verticalCenter="0" horizontalCenter="0" visible="false" width="127" height="117"/>
+			</s:BorderContainer>
+			<!--<s:VideoDisplay width="100%" height="100%" id="adPlayer" complete="endAd(event);"/>-->
+			<mx:ProgressBar width="100%" height="30" enabled="true" label="Téléchargement de vos musiques" id="progressBar" labelPlacement="center" color="#FFFFFF" chromeColor="#1e67c1" mode="event"/>
+		</s:VGroup>
+		<s:VGroup width="30%" height="100%" horizontalAlign="center" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+			<s:BorderContainer width="100%" height="100" contentBackgroundAlpha="0.0" borderWeight="2" cornerRadius="4">
+				<s:layout>
+					<s:VerticalLayout paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/>
+				</s:layout>
+				<s:backgroundFill>
+					<s:LinearGradient y="10" scaleX="60" rotation="90">
+						<s:entries>
+							<s:GradientEntry color="0x00f4f5" alpha="1"/>
+							<s:GradientEntry color="0x112756" alpha="1" />
+						</s:entries>
+					</s:LinearGradient>
+				</s:backgroundFill>
+				<s:Label x="10" y="10" text="Score :" fontSize="26" fontFamily="Verdana" fontWeight="bold" color="#FFFFFF" width="100%"/>
+				<s:Label x="76" y="49" text="0 Points" fontFamily="Verdana" color="#FAF7F7" fontSize="30" id="score" width="100%" height="100%" verticalAlign="middle" textAlign="right"/>
+			</s:BorderContainer>
+			<s:BorderContainer width="100%" height="100" contentBackgroundAlpha="0.0" borderWeight="2" cornerRadius="4">
+				<s:layout>
+					<s:VerticalLayout paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/>
+				</s:layout>
+				<s:backgroundFill>
+					<s:LinearGradient y="10" scaleX="60" rotation="90">
+						<s:entries>
+							<s:GradientEntry color="0x00f4f5" alpha="1"/>
+							<s:GradientEntry color="0x112756" alpha="1" />
+						</s:entries>
+					</s:LinearGradient>
+				</s:backgroundFill>
+				<s:Label x="10" y="10" text.TimeLimit="Temps Restant :" fontSize="26" fontFamily="Verdana" fontWeight="bold" color="#FFFFFF" width="100%" text.NoTimeLimit="Temps Ecoulé :"/>
+				<s:Label x="76" y="49" fontFamily="Verdana" color="#FAF7F7" fontSize="30" id="time" width="100%" height="100%" verticalAlign="middle" textAlign="right"/>
+			</s:BorderContainer>
+			<s:BorderContainer width="100%" height="100" contentBackgroundAlpha="0.0" borderWeight="2" cornerRadius="4">
+				<s:layout>
+					<s:VerticalLayout paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/>
+				</s:layout>
+				<s:backgroundFill>
+					<s:LinearGradient y="10" scaleX="60" rotation="90">
+						<s:entries>
+							<s:GradientEntry color="0x00f4f5" alpha="1"/>
+							<s:GradientEntry color="0x112756" alpha="1" />
+						</s:entries>
+					</s:LinearGradient>
+				</s:backgroundFill>
+				<mx:VBox width="100%" height="100%">
+					<mx:Label x="10" y="10" fontSize="26" fontFamily="Verdana" fontWeight="bold" color="#FFFFFF" width="100%" text="Erreurs :"/>
+					<mx:HBox width="100%" height="100%" verticalAlign="middle" horizontalAlign="right">
+						<mx:Repeater id="myRepeater" dataProvider="{images}"> 
+							<mx:Image source="{myRepeater.currentItem.source}"/> 
+						</mx:Repeater>
+					</mx:HBox>
+				</mx:VBox>
+			</s:BorderContainer>
+			<s:BorderContainer width="100%" height="100%" color="#FFFFFF" backgroundColor="#191979" contentBackgroundColor="#2934A0" cornerRadius="4" borderWeight="2" borderColor="#696969">
+				<s:layout>
+					<s:VerticalLayout horizontalAlign="center" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10" gap="20"/>
+				</s:layout>
+				<s:backgroundFill>
+					<s:LinearGradient y="10" scaleX="60" rotation="90">
+						<s:entries>
+							<s:GradientEntry color="0x00f4f5" alpha="1"/>
+							<s:GradientEntry color="0x112756" alpha="1" />
+						</s:entries>
+					</s:LinearGradient>
+				</s:backgroundFill>
+				<s:Label x="10" y="10" fontSize="18" fontFamily="Verdana" fontWeight="bold" id="question" width="100%" verticalAlign="middle" textAlign="center" paddingBottom="20"/>
+				<s:BorderContainer x="10" y="50" width="100%" height="100%" backgroundAlpha="0.0" cornerRadius="4" borderColor="#FFFFFF" id="borderAd1" mouseOver="borderAd1Entry1.color=0xAAAAAA" mouseOut="borderAd1Entry1.color=0xFFFFFF" click="Ad_clickHandler(event,0)">
+					<s:layout>
+						<s:BasicLayout/>
+					</s:layout>
+					<s:backgroundFill>
+						<s:LinearGradient y="0" scaleX="30" rotation="90">
+							<s:entries>
+								<s:GradientEntry id="borderAd1Entry1" color="0xFFFFFF" alpha="0.7"/>
+								<s:GradientEntry color="0x000000" alpha="0" />
+							</s:entries>
+						</s:LinearGradient>
+					</s:backgroundFill>
+					<mx:Image id="Ad1" left="10" right="10" top="10" bottom="10" mouseChildren="true" horizontalAlign="center" verticalAlign="middle"/>
+					<s:Label left="10" right="10" top="10" bottom="10" verticalAlign="middle" textAlign="center" fontSize="18" fontWeight="bold" id="TxtAd1"/>
+				</s:BorderContainer>
+				<s:BorderContainer x="10" y="237" width="100%" height="100%" backgroundAlpha="0.0" cornerRadius="4" borderColor="#FFFFFF" id="borderAd2" mouseOver="borderAd1Entry2.color=0xAAAAAA" mouseOut="borderAd1Entry2.color=0xFFFFFF" click="Ad_clickHandler(event,1)">
+					<s:layout>
+						<s:BasicLayout/>
+					</s:layout>
+					<s:backgroundFill>
+						<s:LinearGradient y="0" scaleX="30" rotation="90">
+							<s:entries>
+								<s:GradientEntry id="borderAd1Entry2" color="0xFFFFFF" alpha="0.7"/>
+								<s:GradientEntry color="0x000000" alpha="0" />
+							</s:entries>
+						</s:LinearGradient>
+					</s:backgroundFill>
+					<mx:Image id="Ad2" left="10" right="10" top="10" bottom="10" mouseChildren="true" horizontalAlign="center" verticalAlign="middle"/>
+					<s:Label left="10" right="10" top="10" bottom="10" verticalAlign="middle" textAlign="center" fontSize="18" fontWeight="bold" id="TxtAd2"/>
+				</s:BorderContainer>
+				<s:BorderContainer x="10" y="420" width="100%" height="100%" backgroundAlpha="0.0" cornerRadius="4" borderColor="#FFFFFF" id="borderAd3" mouseOver="borderAd1Entry3.color=0xAAAAAA" mouseOut="borderAd1Entry3.color=0xFFFFFF" click="Ad_clickHandler(event,2)">
+					<s:layout>
+						<s:BasicLayout/>
+					</s:layout>
+					<s:backgroundFill>
+						<s:LinearGradient y="0" scaleX="30" rotation="90">
+							<s:entries>
+								<s:GradientEntry id="borderAd1Entry3" color="0xFFFFFF" alpha="0.7"/>
+								<s:GradientEntry color="0x000000" alpha="0" />
+							</s:entries>
+						</s:LinearGradient>
+					</s:backgroundFill>
+					<mx:Image id="Ad3" right="10" left="10" top="10" bottom="10" mouseChildren="true" horizontalAlign="center" verticalAlign="middle"/>
+					<s:Label left="10" right="10" top="10" bottom="10" verticalAlign="middle" textAlign="center" fontSize="18" fontWeight="bold" id="TxtAd3"/>
+				</s:BorderContainer>
+			</s:BorderContainer>
+		</s:VGroup>
+	</s:HGroup>
+	<s:Button includeIn="TypeGame" label="Jouez puis téléchargez" color="#FFFFFF" fontWeight="bold" fontSize="23" cornerRadius="11" chromeColor="#21739A" height="45" width="450" id="BtnNoTimeLimit" click="BtnNoTimeLimit_clickHandler(event)" visible="false"/>
+	<s:Button label="Jouez" color="#FFFFFF" fontWeight="bold" fontSize="23" cornerRadius="11" chromeColor="#21739A" height="45" includeIn="TypeGame" width="450" id="BtnLimitTime" click="BtnLimitTime_clickHandler(event)"/>
+	<s:Label includeIn="TypeGame" text="Vous avez le droit à 6 erreurs maximum" width="450" styleName="redLabel"/>
+	<s:Label includeIn="Win,WinTimeLimit" text="Bravo !!!" color="#21739A" fontSize="36" fontWeight="bold"/>
+	<s:Label includeIn="WinTimeLimit" id="txtMsgWin" color="#606E74" textAlign="left" width="100%" paddingTop="5" paddingBottom="5" height="40" fontWeight="bold"/>
+	<s:DataGroup itemRenderer="GooseGameRenderer" dataProvider="{casesData}"  width="100%" height="25%" includeIn="WinTimeLimit">
+		<s:layout>
+			<s:HorizontalLayout verticalAlign="middle" gap="10"/>
+		</s:layout>
+	</s:DataGroup>
+	
+	<s:Button includeIn="Win,WinTimeLimit" label="Cliquez pour obtenir vos musiques" color="#FFFFFF" chromeColor="#21739A" fontSize="23" fontWeight="bold" cornerRadius="11" width="530" height="45" id="btnDownloadMusics" click="btnDownloadMusics_clickHandler(event)"/>
+	<s:Label includeIn="Win,WinTimeLimit" text="Le décryptage des fichiers va prend quelques secondes, Veuillez patientez ..." color="#E91616" fontSize="14" id="labelWait"/>
+	<s:Label includeIn="Lost" text="Désolé vous avez perdu !!!" color="#FFFDFD" fontWeight="bold" fontSize="36" paddingBottom="40"/>
+	<s:Button includeIn="Lost" label="Retentez votre chance" color="#FFFFFF" chromeColor="#21739A" fontSize="23" cornerRadius="11" height="45" id="btnReplay" click="btnReplay_clickHandler(event)" width="330"/>
+	<s:Label includeIn="Pause" text="Jeu en pause" color="#21739A" fontSize="36" fontWeight="bold" paddingBottom="50"/>
+	<s:Button includeIn="Pause" label="Réprendre" color="#21739A" chromeColor="#21739A" height="45" width="250" id="btnResume" click="btnResume_clickHandler(event)"/>
+</s:Application>

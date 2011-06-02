@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			[Embed (source="assets/jump.png" )] 
+			protected static const jumpImg:Class;
+			
+			[Embed (source="assets/reduc.png" )] 
+			protected static const reducImg:Class;
+			
+			[Embed (source="assets/win.png" )] 
+			protected static const winImg:Class;
+			
+			[Embed (source="assets/addCagnotte.png" )] 
+			protected static const addImg:Class;
+			
+			[Embed (source="assets/start.png" )] 
+			protected static const startImg:Class;
+			
+			[Embed (source="assets/dead.png" )] 
+			protected static const deadImg:Class;
+
+			[Embed (source="assets/jail.png" )] 
+			protected static const JailImg:Class;
+
+			protected static const imgs:ArrayCollection  = new ArrayCollection(
+					[startImg, jumpImg,reducImg,winImg,deadImg,addImg,JailImg]);
+			
+		]]>
+	</fx:Script>
+	<s:BorderContainer width="15%" height="100%" backgroundColor="#000000" cornerRadius="4" borderWeight="2" borderColor="#FFFFFF" contentBackgroundAlpha="1.0" backgroundAlpha="0.0">
+		<s:layout>
+			<s:BasicLayout/>
+		</s:layout>
+		<mx:Image right="10" top="10" bottom="10" left="10" id="imgCase" source="{imgs.getItemAt(data.type)}"/>
+		<s:Label right="10" top="10" color="#FFFFFF" fontWeight="bold" fontSize="28" text="{data.num.toString()}"/>
+		<mx:Image verticalCenter="0" horizontalCenter="0" source="@Embed('assets/token.png')" visible="{data.isToken}"/>
+	</s:BorderContainer>
+	
+</s:ItemRenderer>
