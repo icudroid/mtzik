@@ -18,7 +18,7 @@
 		</fieldset>
 	</form>
 
-	<form method="post" id="login_form" action="<c:url value='/j_security_check'/>"
+	<form method="post" id="login_form" action="<c:url value='/j_security_check.html'/>"
 	    onsubmit="saveUsername(this);return validateForm(this);">
 	    <fieldset>
 			<h3><fmt:message key="label.already.record"/></h3>

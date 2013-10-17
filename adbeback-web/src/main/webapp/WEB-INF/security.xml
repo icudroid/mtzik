@@ -40,7 +40,7 @@
 <!--    	</session-management>-->
 <!--    	<logout logout-url="/logout.jsp" logout-success-url="/home.html" invalidate-session="true" />-->
         
-        <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" login-processing-url="/j_security_check"/>
+        <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" login-processing-url="/j_security_check.html"/>
         <remember-me user-service-ref="playerDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/>
     </http>
 

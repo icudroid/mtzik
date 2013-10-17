@@ -304,7 +304,7 @@
 		<web.framework>spring</web.framework>
 		<amp.genericCore>true</amp.genericCore>
 		<amp.fullSource>false</amp.fullSource>
-		<db.name>adbeback_dev</db.name>
+		<db.name>mtzik</db.name>
 
 		<!-- Directories -->
 		<music.directory>/home/dimitri/musics/</music.directory>
@@ -408,8 +408,8 @@
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8
 		</jdbc.url>
-		<jdbc.username>root</jdbc.username>
-		<jdbc.password>20minutes</jdbc.password>
+		<jdbc.username>mtzik</jdbc.username>
+		<jdbc.password>@db3b@ck!!</jdbc.password>
 		
 		
 	</properties>
